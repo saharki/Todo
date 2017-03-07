@@ -2,13 +2,15 @@ import React from "react"
 
 import Task from "./Task"
 import NewTask from "./NewTask"
+import Styles from "../../styles/Todo.less"
 
 export default class Todo extends React.Component {
 
 	constructor() {
 		super();
 		this.state = {
-			tasks: []
+			tasks: [],
+			filter: "SHOW_ALL"
 		}
 	}
 
@@ -16,8 +18,8 @@ export default class Todo extends React.Component {
 
 		const tasks = this.state.tasks
 		const taskID = Date.now()
-		tasks.push(<Task description={description} id={taskID} key={taskID} updateTaskHandler={this.updateTask} removeTaskHandler={this.removeTask}/>)
-		this.setState({tasks})
+		tasks.push(<Task  class = "task" description={description} id={taskID} key={taskID} updateTaskHandler={this.updateTask} removeTaskHandler={this.removeTask} done={false}/>)
+		this.setState({tasks, filter: "SHOW_ALL"})
 	}
 
 	removeTask = (id) => {
@@ -42,14 +44,33 @@ export default class Todo extends React.Component {
 		this.setState({ tasks })
 	}
 
-	render() {
+	filterHandler = (e) => {
+		e.preventDefault()
+		this.setState({ filter: e.target.id })
+	}
 
+	filterTask = (task) => {
+		if(this.state.filter !== "SHOW_ALL") {
+			return task.props.done === (this.state.filter === "SHOW_COMPLETED")
+		}
+		return true
+	}
+
+	render() {
+		const printedTasks = this.state.tasks.filter(this.filterTask)
 		return ( 
-		<div>
+		<div class="todo-wrapper">
 			<NewTask onClick={this.addTask}/>
-			<ol>
-				{this.state.tasks}
-			</ol>
+			<ul class="todo-list-menu">
+				<li class="todo-list-option"><a href="" onClick = {this.filterHandler} id="SHOW_ALL" >All</a></li>
+				<li class="todo-list-option"><a href="" onClick = {this.filterHandler} id="SHOW_COMPLETED" >Completed</a></li>
+				<li class="todo-list-option"><a href="" onClick = {this.filterHandler} id="SHOW_INCOMPLETED" >Incomplete</a></li>
+			</ul>
+			<div>
+				<ol>
+					{printedTasks}
+				</ol>
+			</div>
 		</div>
 		)
 	}

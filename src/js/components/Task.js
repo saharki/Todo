@@ -1,5 +1,7 @@
 import React from "react"
 
+import Styles from "../../styles/Task.less"
+
 export default class Task extends React.Component {
   constructor(props) {
     super()
@@ -25,36 +27,44 @@ export default class Task extends React.Component {
   }
 
   saveHandler = (e) => {
-    this.setState({edit: false})
-    this.props.updateTaskHandler(this.state)
+    this.setState({edit: false}, () => this.props.updateTaskHandler(this.state))
   }
 
   removeHandler = (e) => {
     this.props.removeTaskHandler(this.state.id)
   }
 
+  toggleDoneHandler = (e) => {
+    e.preventDefault()
+   this.setState({done: !this.state.done}, () => this.props.updateTaskHandler(this.state))
+  }
+
   render() {
 
-    const editBtnStyle = {
-      margin: "5px"
-    }
+    const doneMark = this.state.done ? "✘" : "✔" 
+
     if(this.state.edit === true) {
 
       return ( 
         <li>
-          <button onClick={this.removeHandler}>X</button>
-          <input value={this.state.description} onChange={this.inputChangeHandler} value = {this.state.description}/>
           <button onClick={this.saveHandler}>Save</button>
+          <input value={this.state.description} onChange={this.inputChangeHandler} value = {this.state.description}/>
+          <button onClick={this.removeHandler}>DELETE</button>
         </li>
       )
     }
     else {
-      return ( 
+      let taskElem = (
         <li>
-          <button onClick={this.editHandler} style={editBtnStyle}>Edit</button>
+          <button onClick={this.toggleDoneHandler}>{doneMark}</button>
+          <button onClick={this.editHandler}>Edit</button>
           {this.props.description}
         </li>
       )
+      if(this.state.done === true) {
+        taskElem = ( <s> {taskElem} </s>  )
+      }
+      return taskElem
     }
   }
 }
