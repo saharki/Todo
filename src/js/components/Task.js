@@ -36,7 +36,7 @@ export default class Task extends React.Component {
 
   toggleDoneHandler = (e) => {
     e.preventDefault()
-   this.setState({done: !this.state.done}, () => this.props.updateTaskHandler(this.state))
+    this.setState({done: !this.state.done}, () => this.props.updateTaskHandler(this.state))
   }
 
   render() {
