@@ -6,16 +6,12 @@ export default class Task extends React.Component {
   constructor(props) {
     super()
     this.state = {
-      id: props.id,
-      edit: false,
-      done: props.done || false,
       description: props.description || ""
     }
   }
 
   inputChangeHandler = (e) => {
     e.preventDefault()
-
     this.setState({
       description: e.target.value
     })
@@ -23,27 +19,37 @@ export default class Task extends React.Component {
 
   editHandler = (e) => {
     e.preventDefault()
-    this.setState({edit: true})
+    this.props.updateTaskHandler({
+      id: this.props.id,
+      edit: true,
+    })
   }
 
   saveHandler = (e) => {
-    this.setState({edit: false}, () => this.props.updateTaskHandler(this.state))
+    this.props.updateTaskHandler({
+      id: this.props.id,
+      done: this.props.done,
+      description: this.state.description === "" ? this.props.description : this.state.description ,
+      edit: false,
+    })
   }
 
   removeHandler = (e) => {
-    this.props.removeTaskHandler(this.state.id)
+    this.props.removeTaskHandler(this.props.id)
   }
 
   toggleDoneHandler = (e) => {
     e.preventDefault()
-    this.setState({done: !this.state.done}, () => this.props.updateTaskHandler(this.state))
+    this.props.updateTaskHandler({
+      id: this.props.id,
+      done: !this.props.done,
+    })
   }
 
   render() {
 
-    const doneMark = this.state.done ? "✘" : "✔" 
-
-    if(this.state.edit === true) {
+    const doneMark = this.props.done ? "✘" : "✔" 
+    if(this.props.edit === true) {
 
       return ( 
         <li>
@@ -58,10 +64,10 @@ export default class Task extends React.Component {
         <li>
           <button onClick={this.toggleDoneHandler}>{doneMark}</button>
           <button onClick={this.editHandler}>Edit</button>
-          {this.props.description}
+          {this.state.description}
         </li>
       )
-      if(this.state.done === true) {
+      if(this.props.done === true) {
         taskElem = ( <s> {taskElem} </s>  )
       }
       return taskElem

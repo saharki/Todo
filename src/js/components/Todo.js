@@ -17,10 +17,6 @@ export default class Todo extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      tasks: [],
-      filter: "SHOW_ALL"
-    }
   }
 
   addTaskHandler = (description) => {
@@ -49,7 +45,7 @@ export default class Todo extends React.Component {
   }
 
   render() {
-    const tasks = this.props.tasks.map((task) => {return <Task  class = "task" description={task.description} id={task.id} key={task.id} updateTaskHandler={this.updateTaskHandler} removeTaskHandler={this.removeTaskHandler} done={task.done}/>})
+    const tasks = this.props.tasks.map((task) => {return <Task  class = "task" description={task.description} id={task.id} key={task.id} updateTaskHandler={this.updateTaskHandler} removeTaskHandler={this.removeTaskHandler} done={task.done} edit={task.edit}/>})
     const printedTasks = tasks.filter(this.filterTask)
     return ( 
     <div class="todo-wrapper">

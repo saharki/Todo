@@ -12,12 +12,13 @@ export const removeTask = (id) => ({
   },
 })
 
-export const updateTask = ({id, description, done}) => ({
+export const updateTask = ({id, description, done, edit}) => ({
   type: "UPDATE_TASK",
   payload: {
     id,
     description,
     done,
+    edit,
   },
 })
 
