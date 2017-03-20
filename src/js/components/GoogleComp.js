@@ -1,7 +1,7 @@
 import React from "react"
 
 import Todo from "./Todo"
-import MyGoogleMap from './GoogleMap'
+import MyGoogleMap from './MyGoogleMap'
 
 export default class GooglComp extends React.Component {
 

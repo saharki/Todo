@@ -19,7 +19,7 @@ import DrawingManager from "react-google-maps/lib/drawing/DrawingManager"
  * Credits: thanks @idolize for the contribution!
  */
 const DrawingExampleGoogleMap = withGoogleMap(props => (
-  <GoogleMap
+   <GoogleMap
     defaultZoom={8}
     defaultCenter={new google.maps.LatLng(-34.397, 150.644)}
   >
@@ -66,6 +66,8 @@ export default class MyGoogleMap extends Component {
     )
   }
 }
+
+
 
 
 

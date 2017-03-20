@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 
-// // import SimpleMap from './components/SimpleMap'
+import SimpleMap from './components/SimpleMap'
 import Layout from "./components/Layout"
 import store from "./store.js"
 import { addTask, removeTask, updateTask } from "./actions/index"
@@ -12,6 +12,11 @@ ReactDOM.render(
   <Provider store={store}>  
     <Layout/>
   </Provider>, app) 
+// ReactDOM.render(
+//   <div style={{width: '100%'}}>
+//   <SimpleMap/>
+//   </div>, app) 
+
 
 // store.dispatch(addTask('Test1'))
 // store.dispatch(addTask('Test2'))
