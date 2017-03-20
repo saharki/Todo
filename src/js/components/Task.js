@@ -2,6 +2,7 @@ import React from "react"
 
 import Styles from "../../styles/Task.less"
 
+
 export default class Task extends React.Component {
   constructor(props) {
     super()
